@@ -1,0 +1,34 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+  <title>Search Results</title>
+</head>
+<body>
+
+  <div class="container">
+    <br><br>
+
+    <h1 style="color: red;">Search Results</h1>
+
+    <br><br>
+
+    {% for quote in quotes %}
+      <ul>
+        <li>{{ quote }} - <b>By <i>{{ quote.name }}</i></b></li>
+      </ul>
+    {% empty %}
+      <p>The database is empty. Add some quotes.</p>
+    {% endfor %}
+
+    <br><br>
+
+    <a href="{% url 'all_quotes' %}" class="btn btn-primary">All Quotes</a>
+
+    <br><br>
+  </div>
+
+</body>
+</html>
