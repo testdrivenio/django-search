@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "quotes.apps.QuotesConfig",
     "debug_toolbar",
+    "django.contrib.postgres",
 ]
 
 MIDDLEWARE = [
