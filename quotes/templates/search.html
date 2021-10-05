@@ -17,7 +17,7 @@
 
     {% for quote in quotes %}
       <ul>
-        <li>{{ quote }} - <b>By <i>{{ quote.name }}</i></b></li>
+        <li>{{ quote.quote }} - <b>By <i>{{ quote.name }}</i></b></li>
       </ul>
     {% empty %}
       <p>No results found. Try again.</p>
