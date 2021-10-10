@@ -1,4 +1,4 @@
-from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
+from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank, SearchHeadline
 from django.db.models import Q
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView
@@ -77,6 +77,42 @@ class QuoteList(ListView):
 
 
 # Weights
+# class SearchResultsList(ListView):
+#     model = Quote
+#     context_object_name = "quotes"
+#     template_name = "search.html"
+
+#     def get_queryset(self):
+#         query = self.request.GET.get("q")
+#         search_vector = SearchVector("name", weight="B") + SearchVector(
+#             "quote", weight="A"
+#         )
+#         search_query = SearchQuery(query)
+#         return (
+#             Quote.objects.annotate(rank=SearchRank(search_vector, search_query))
+#             .filter(rank__gte=0.3)
+#             .order_by("-rank")
+#         )
+
+
+# Preview
+# class SearchResultsList(ListView):
+#     model = Quote
+#     context_object_name = "quotes"
+#     template_name = "search.html"
+
+#     def get_queryset(self):
+#         query = self.request.GET.get("q")
+#         search_vector = SearchVector("name", "quote")
+#         search_query = SearchQuery(query)
+#         search_headline = SearchHeadline("quote", search_query)
+#         return Quote.objects.annotate(
+#             search=search_vector,
+#             rank=SearchRank(search_vector, search_query)
+#         ).annotate(headline=search_headline).filter(search=search_query).order_by("-rank")
+
+
+# SearchVectorField
 class SearchResultsList(ListView):
     model = Quote
     context_object_name = "quotes"
@@ -84,12 +120,4 @@ class SearchResultsList(ListView):
 
     def get_queryset(self):
         query = self.request.GET.get("q")
-        search_vector = SearchVector("name", weight="B") + SearchVector(
-            "quote", weight="A"
-        )
-        search_query = SearchQuery(query)
-        return (
-            Quote.objects.annotate(rank=SearchRank(search_vector, search_query))
-            .filter(rank__gte=0.3)
-            .order_by("-rank")
-        )
+        return Quote.objects.filter(search_vector=query)
