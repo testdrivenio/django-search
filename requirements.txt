@@ -1,5 +1,5 @@
 black==21.6b0
-Django==3.2.4
+Django==3.2.8
 django-debug-toolbar==3.2.1
 Faker==8.8.0
 psycopg2-binary==2.8.6
