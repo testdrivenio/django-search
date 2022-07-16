@@ -10,7 +10,9 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         fake = Faker()
 
-        for _ in range(10000):
-            Quote.objects.create(name=fake.name(), quote=fake.text())
+        quotes_tuple = (Quote(name=fake.name(), quote=fake.text())
+                        for _ in range(10_000))
+
+        Quote.objects.bulk_create(quotes_tuple)
 
         print("Completed!!! Check your database.")
